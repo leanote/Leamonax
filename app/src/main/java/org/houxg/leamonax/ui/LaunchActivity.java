@@ -29,12 +29,13 @@ public class LaunchActivity extends Activity {
         } else {
             intent = new Intent(this, SignInActivity.class);
         }
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+
         findViewById(R.id.iv_logo)
                 .animate()
-                .scaleX(1.5f)
-                .scaleY(1.5f)
-                .setDuration(3000)
+                .scaleX(1.2f)
+                .scaleY(1.2f)
+                .setDuration(500)
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
