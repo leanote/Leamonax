@@ -4,8 +4,6 @@ import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.Window;
 import android.view.WindowManager;
 
 import org.houxg.leamonax.R;
@@ -32,9 +30,7 @@ public class LaunchActivity extends Activity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         findViewById(R.id.iv_logo)
                 .animate()
-                .scaleX(1.5f)
-                .scaleY(1.5f)
-                .setDuration(3000)
+                .setDuration(1000)
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animator) {
@@ -57,5 +53,10 @@ public class LaunchActivity extends Activity {
 
                     }
                 }).start();
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
