@@ -114,4 +114,8 @@
     <string name="notebook_default_root_notebook_title">空目录(最顶层目录)</string>
     <string name="delete_network_error">网络不可用，将在下次同步时删除</string>
     <string name="activity_search_note_not_found">没有找到</string>
+    <string name="permission_get_error">获取权限失败，程序启动失败</string>
+    <string name="permission_get_description">我们需要一些权限来启动应用，请给予我们这些应用。请放心，我们保证只会申请必要的权限，并保证绝不泄露用户隐私信息</string>
+    <string name="permission_get">权限申请</string>
+    <string name="allow">允许</string>
 </resources>
