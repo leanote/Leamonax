@@ -27,7 +27,7 @@ public class NoteAppWidgetConfigureActivity extends Activity {
 
             // 单击按钮的时候，字符串存储在本地
             String widgetText = mAppWidgetText.getText().toString();
-            saveTitlePref(context, mAppWidgetId, widgetText);
+//            saveTitlePref(context, mAppWidgetId, widgetText);
 
             // 更新app小部件是配置活动的职责
             // It is the responsibility of the configuration activity to update the app widget

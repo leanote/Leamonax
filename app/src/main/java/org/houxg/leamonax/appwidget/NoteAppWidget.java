@@ -6,6 +6,7 @@ import android.content.Context;
 import android.widget.RemoteViews;
 
 import org.houxg.leamonax.R;
+import org.houxg.leamonax.ui.NoteFragment;
 
 
 /**
@@ -22,7 +23,10 @@ public class NoteAppWidget extends AppWidgetProvider {
         // 构建小部件的ui
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.note_app_widget);
-        views.setTextViewText(R.id.appwidget_text, widgetText);
+//        views.setTextViewText(R.id.appwidget_text, widgetText);
+        NoteFragment mNoteFragment;
+
+        // 设置界面
 
         // 指示小部件管理器更新小部件
         // Instruct the widget manager to update the widget
