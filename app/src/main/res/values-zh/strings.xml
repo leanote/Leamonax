@@ -24,6 +24,7 @@
     <string name="delete_note">删除笔记</string>
     <string name="delete_note_failed">删除笔记失败</string>
     <string name="edit">编辑</string>
+    <string name="rotate">旋转</string>
     <string name="editor">编辑器</string>
     <string name="email">邮箱</string>
     <string name="email_or_password_incorrect">邮箱或密码错误</string>
