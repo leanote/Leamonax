@@ -121,4 +121,7 @@
     <string name="permission_get_description">We need some permission to start the application</string>
     <string name="permission_get">Permission request</string>
     <string name="allow">allow</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
 </resources>

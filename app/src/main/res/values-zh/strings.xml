@@ -51,7 +51,7 @@
     <string name="password">密码</string>
     <string name="preview">预览</string>
     <string name="public_note">公开笔记</string>
-    <string name="recent_notes">最近</string>
+    <string name="recent_notes">最近笔记</string>
     <string name="revert">还原</string>
     <string name="reverting">还原中</string>
     <string name="save">保存</string>

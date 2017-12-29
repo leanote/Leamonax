@@ -2,6 +2,7 @@ package org.houxg.leamonax.ui;
 
 import android.Manifest;
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,7 +39,7 @@ public class LaunchActivity extends Activity {
             }else {
                 AlertDialog.Builder builder=new AlertDialog.Builder(LaunchActivity.this);
                 builder.setMessage(getString(R.string.permission_get_description));
-                builder.setTitle(getString(R.string.permission_denied));
+                builder.setTitle(getString(R.string.permission_get));
                 builder.setPositiveButton(getString(R.string.allow), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -69,6 +70,7 @@ public class LaunchActivity extends Activity {
 
     }
 
+    @SuppressLint("WrongViewCast")
     private void doAfterGetPermission(){
         final Intent intent;
         if (AccountService.isSignedIn()) {
@@ -129,7 +131,8 @@ public class LaunchActivity extends Activity {
                     if(hasPermission(Manifest.permission.CAMERA ,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE ,
                             Manifest.permission.READ_EXTERNAL_STORAGE ,
-                            Manifest.permission.READ_PHONE_STATE )){
+                            Manifest.permission.READ_PHONE_STATE
+                    )){
                         doAfterGetPermission();
                     }else {
                         Toast.makeText(LaunchActivity.this,getString(R.string.permission_get_error),Toast.LENGTH_SHORT).show();
