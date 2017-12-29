@@ -2,6 +2,7 @@ package org.houxg.leamonax.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +35,8 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.schedulers.Schedulers;
+
+import static android.content.res.Configuration.ORIENTATION_PORTRAIT;
 
 public class NotePreviewActivity extends BaseActivity implements EditorFragment.EditorFragmentListener {
 
@@ -84,6 +87,13 @@ public class NotePreviewActivity extends BaseActivity implements EditorFragment.
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_rotate:
+                if (ORIENTATION_PORTRAIT == getResources().getConfiguration().orientation) {
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+                } else {
+                    setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                }
+                return true;
             case R.id.action_edit:
                 startActivityForResult(NoteEditActivity.getOpenIntent(this, mNote.getId(), false), REQ_EDIT);
                 return true;

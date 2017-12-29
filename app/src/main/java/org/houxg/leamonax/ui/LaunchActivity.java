@@ -2,6 +2,7 @@ package org.houxg.leamonax.ui;
 
 import android.Manifest;
 import android.animation.Animator;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -69,6 +70,7 @@ public class LaunchActivity extends Activity {
 
     }
 
+    @SuppressLint("WrongViewCast")
     private void doAfterGetPermission(){
         final Intent intent;
         if (AccountService.isSignedIn()) {
