@@ -36,9 +36,9 @@ public class AppWidgetViewsFactory implements RemoteViewsService.RemoteViewsFact
                 return temp2.compareTo(temp1);
             }
         });
-
-        allNotes=allNotes.subList(0,30);
-
+        if(allNotes.size()>30){
+            allNotes=allNotes.subList(0,30);
+        }
     }
     
 
