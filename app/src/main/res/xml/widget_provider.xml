@@ -4,6 +4,6 @@
   android:updatePeriodMillis="43200000"
   android:initialLayout="@layout/note_app_widget"
   android:autoAdvanceViewId="@+id/words"
-  android:previewImage="@drawable/example_appwidget_preview"
+  android:previewImage="@drawable/ic_launcher"
   android:resizeMode="vertical"
 />
