@@ -109,6 +109,14 @@ public class NoteEditActivity extends BaseActivity implements EditorFragment.Edi
     }
 
     @Override
+    protected void onDestroy() {
+        Intent intent = new Intent();
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        this.sendBroadcast(intent);
+        super.onDestroy();
+    }
+
+    @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:

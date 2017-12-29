@@ -1,53 +1,82 @@
 package org.houxg.leamonax.appwidget;
 
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import org.houxg.leamonax.R;
-import org.houxg.leamonax.ui.NoteFragment;
 
-
-/**
- * Implementation of App Widget functionality.
- * App Widget Configuration implemented in {@link NoteAppWidgetConfigureActivity NoteAppWidgetConfigureActivity}
- */
 public class NoteAppWidget extends AppWidgetProvider {
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    private int widgetIds[];
 
-        //获取从设置的activity 里保存的信息
-        CharSequence widgetText = NoteAppWidgetConfigureActivity.loadTitlePref(context, appWidgetId);
-        // 构建小部件的ui
-        // Construct the RemoteViews object
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.note_app_widget);
-//        views.setTextViewText(R.id.appwidget_text, widgetText);
-        NoteFragment mNoteFragment;
-
-        // 设置界面
-
-        // 指示小部件管理器更新小部件
-        // Instruct the widget manager to update the widget
-        appWidgetManager.updateAppWidget(appWidgetId, views);
-
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+        Log.i("debug!!!!!!!!!!!!!!!!","接收到广播");
+//        abortBroadcast();
+//        for (int i=0;i<widgetIds.length;i++){
+//            Intent svcIntent=new Intent(context, WidgetService.class);
+//            RemoteViews widget=new RemoteViews(context.getPackageName(),
+//                    R.layout.note_app_widget);
+//
+//            widget.setRemoteAdapter(widgetIds[i], R.id.words,
+//                    svcIntent);
+//
+//            Intent clickIntent=new Intent(context, RedirActivity.class);
+//            PendingIntent clickPI=PendingIntent
+//                    .getActivity(context, 0,
+//                            clickIntent,
+//                            PendingIntent.FLAG_UPDATE_CURRENT);
+//
+//            widget.setPendingIntentTemplate(R.id.words, clickPI);
+//
+//            AppWidgetManager.getInstance(context).updateAppWidget(widgetIds[i], widget);
+//
+//        }
     }
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        // There may be multiple widgets active, so update all of them
-        for (int appWidgetId : appWidgetIds) {
-            updateAppWidget(context, appWidgetManager, appWidgetId);
+        widgetIds=appWidgetIds;
+        for (int i=0; i<appWidgetIds.length; i++) {
+            Intent svcIntent=new Intent(context, WidgetService.class);
+
+            svcIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
+            svcIntent.setData(Uri.parse(svcIntent.toUri(Intent.URI_INTENT_SCHEME)));
+
+            RemoteViews widget=new RemoteViews(context.getPackageName(),
+                    R.layout.note_app_widget);
+
+            widget.setRemoteAdapter(appWidgetIds[i], R.id.words,
+                    svcIntent);
+
+            Intent clickIntent=new Intent(context, RedirActivity.class);
+            PendingIntent clickPI=PendingIntent
+                    .getActivity(context, 0,
+                            clickIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT);
+
+            widget.setPendingIntentTemplate(R.id.words, clickPI);
+
+//            Intent i=new Intent(ctxt,NotePreviewActivity.class);
+//            i.putExtra(NotePreviewActivity.EXT_NOTE_LOCAL_ID, allNotes.get(position).getId());
+//            row.setOnClickFillInIntent(R.id.widget_note, i);
+
+            appWidgetManager.updateAppWidget(appWidgetIds[i], widget);
         }
+        super.onUpdate(context, appWidgetManager, appWidgetIds);
     }
 
     @Override
     public void onDeleted(Context context, int[] appWidgetIds) {
         // When the user deletes the widget, delete the preference associated with it.
-        for (int appWidgetId : appWidgetIds) {
-            NoteAppWidgetConfigureActivity.deleteTitlePref(context, appWidgetId);
-        }
+
     }
 
     @Override
