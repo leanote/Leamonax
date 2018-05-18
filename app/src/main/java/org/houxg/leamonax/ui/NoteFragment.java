@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,8 +20,10 @@ import org.houxg.leamonax.Leamonax;
 import org.houxg.leamonax.R;
 import org.houxg.leamonax.adapter.NoteAdapter;
 import org.houxg.leamonax.database.NoteDataStore;
+import org.houxg.leamonax.database.NotebookDataStore;
 import org.houxg.leamonax.model.Account;
 import org.houxg.leamonax.model.Note;
+import org.houxg.leamonax.model.Notebook;
 import org.houxg.leamonax.service.NoteService;
 import org.houxg.leamonax.utils.ActionModeHandler;
 import org.houxg.leamonax.utils.CollectionUtils;
@@ -154,6 +157,29 @@ public class NoteFragment extends Fragment implements NoteAdapter.NoteAdapterLis
             mOnSearchFinishListener.doSearchFinish();
         }
     }
+
+    public boolean canGoBack() {
+        if (mCurrentMode == Mode.NOTEBOOK) {
+            Notebook notebook = NotebookDataStore.getByLocalId(mCurrentMode.notebookId);
+            if (!TextUtils.isEmpty(notebook.getParentNotebookId())) {
+                return true;
+            }
+            return false;
+        }
+        return false;
+    }
+
+    public void goBack() {
+        if (mCurrentMode == Mode.NOTEBOOK) {
+            Notebook notebook = NotebookDataStore.getByLocalId(mCurrentMode.notebookId);
+            long localId = NotebookDataStore.getByServerId(notebook.getParentNotebookId()).getId();
+            Mode mode = Mode.NOTEBOOK;
+            mode.setNotebookId(localId);
+            setMode(mode);
+        }
+    }
+
+
 
     @Override
     public void onClickNote(Note note) {

@@ -137,7 +137,11 @@ public class MainActivity extends BaseActivity implements Navigation.Callback {
         if (mNavigation.isOpen()) {
             mNavigation.close();
         } else {
-            super.onBackPressed();
+            if (mNoteFragment.canGoBack()) {
+                mNoteFragment.goBack();
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
