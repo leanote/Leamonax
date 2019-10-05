@@ -37,7 +37,7 @@ public class ShareUtils {
      * @return body
      */
     public static String getBody(final Intent intent) {
-        return intent != null ? intent.getStringExtra(EXTRA_TEXT) : null;
+        return intent != null ? intent.getStringExtra(EXTRA_TEXT) : "";
     }
 
     /**
@@ -47,6 +47,12 @@ public class ShareUtils {
      * @return subject
      */
     public static String getSubject(final Intent intent) {
-        return intent != null ? intent.getStringExtra(EXTRA_SUBJECT) : null;
+        String result;
+        result = intent != null ? intent.getStringExtra(EXTRA_SUBJECT) : null;
+        if (result == null) {
+            result = getBody(intent);
+            result = result.substring(0, Math.min(result.length(), 20));
+        }
+        return result;
     }
 }
