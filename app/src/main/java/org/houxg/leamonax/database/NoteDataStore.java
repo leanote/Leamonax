@@ -1,7 +1,9 @@
 package org.houxg.leamonax.database;
 
 
+import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 import com.raizlabs.android.dbflow.config.FlowManager;
 import com.raizlabs.android.dbflow.sql.language.Join;
@@ -40,8 +42,10 @@ public class NoteDataStore {
     public static void updateFTSNoteByLocalId(Long localId) {
         Note note = getByLocalId(localId);
         DatabaseWrapper databaseWrapper = FlowManager.getWritableDatabase(AppDataBase.class);
-        String query = "UPDATE fts_note SET content = '" + note.getContent() + "' where rowid = " + localId;
-        databaseWrapper.execSQL(query);
+        ContentValues args = new ContentValues();
+        args.put("content", note.getContent());
+        // String query = "UPDATE fts_note SET content = '" + note.getContent() + "' where rowid = " + localId;
+        databaseWrapper.updateWithOnConflict("fts_note", args, "rowid = " + localId, null, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     public static boolean isExistsTableFTSNote() {
