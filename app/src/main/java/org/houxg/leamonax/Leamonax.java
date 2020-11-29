@@ -4,6 +4,7 @@ package org.houxg.leamonax;
 import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.CursorWindow;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
@@ -24,6 +25,8 @@ import net.danlew.android.joda.JodaTimeAndroid;
 
 import org.greenrobot.eventbus.EventBus;
 import org.houxg.leamonax.ui.MainActivity;
+
+import java.lang.reflect.Field;
 
 public class Leamonax extends Application {
 
@@ -58,6 +61,14 @@ public class Leamonax extends Application {
                 Glide.with(context).load(path).into(imageView);
             }
         });
+        // Increase allowed size of notes.
+        try {
+            Field field = CursorWindow.class.getDeclaredField("sCursorWindowSize");
+            field.setAccessible(true);
+            field.set(null, 30 * 1024 * 1024); // Allow 30MB notes
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initBugly() {
